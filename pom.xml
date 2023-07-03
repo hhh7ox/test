@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.qf</groupId>
+    <artifactId>day44</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>mybatisdemo1</module>
+        <module>mybatisdemo2</module>
+        <module>springdemo01</module>
+        <module>springdemo02</module>
+        <module>springdemo03</module>
+        <module>springdemo04</module>
+        <module>springdemo05</module>
+        <module>springdemo06</module>
+        <module>springmybatisdemo1</module>
+        <module>springmvcdemo01</module>
+        <module>springmvcdemo02</module>
+        <module>springexdemo01</module>
+        <module>springeventdemo01</module>
+        <module>springinterceptor01</module>
+        <module>springupdowndemo01</module>
+        <module>SSMdemo01</module>
+        <module>smartplatform</module>
+        <module>websocketdemo01</module>
+        <module>permission</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

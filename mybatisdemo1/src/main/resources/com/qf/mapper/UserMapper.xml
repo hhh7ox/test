@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.mapper.UserMapper">
+    <select id="selectAll" resultType="com.qf.pojo.User">
+        select *
+        from t_users;
+    </select>
+
+    <select id="selectById" resultType="com.qf.pojo.User">
+        select *
+        from t_users
+        where id = #{id};
+    </select>
+
+    <select id="selectBySexAndLikeName" resultType="com.qf.pojo.User">
+        select *
+        from t_users
+        where sex = #{sex}
+          and name like concat('%', #{name}, '%');
+    </select>
+
+    <select id="selectBySexAndPasswordAndLikeName" resultType="com.qf.pojo.User">
+        select * from t_users
+        <where>
+            <if test="user.sex!=null and user.sex!=''">
+                sex=#{user.sex}
+            </if>
+
+            <if test="user.password!=null and user.password!=''">
+                and password=#{user.password}
+            </if>
+
+            <if test="user.name!=null and user.name!=''">
+                and name like '%${user.name}%'
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap id="UserAndUserDescResultMap" type="com.qf.pojo.User">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="password" property="password"></result>
+        <result column="sex" property="sex"></result>
+        <result column="birthday" property="birthday"></result>
+        <result column="registTime" property="registTime"></result>
+
+        <association property="userDesc" javaType="com.qf.pojo.UserDesc">
+            <id column="id" property="id"></id>
+            <result column="address" property="address"></result>
+            <result column="phone" property="phoneNum"></result>
+        </association>
+
+    </resultMap>
+
+    <select id="selectUserAndUserDescByIdWithIn" resultMap="UserAndUserDescResultMap">
+        select a.*, b.address, b.phone
+        from t_users as a,
+             t_user_desc as b
+        where a.id = b.id;
+    </select>
+
+    <select id="selectUserByIds" resultType="com.qf.pojo.User">
+        select * from t_users where
+        <foreach collection="ids" item="id" open="id in (" close=");" separator=",">
+            #{id}
+        </foreach>
+
+    </select>
+
+
+    <insert id="insertUser">
+        <selectKey keyProperty="user.id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID();
+        </selectKey>
+        insert into t_users (name,password,sex,birthday,registtime) values(
+        #{user.name},
+        #{user.password},
+        #{user.sex},
+        #{user.birthday},
+        #{user.registTime}
+        );
+    </insert>
+
+    <update id="updateUserNameById">
+        update t_users
+        <set>
+            <if test="name!=null">
+                name=#{name}
+            </if>
+        </set>
+
+        where id = #{id};
+    </update>
+
+    <delete id="deleteUserById">
+        delete
+        from t_users
+        where id = #{id};
+    </delete>
+
+</mapper>

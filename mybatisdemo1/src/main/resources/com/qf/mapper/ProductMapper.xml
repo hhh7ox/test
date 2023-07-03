@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.mapper.ProductMapper">
+    <resultMap id="ProductAndOrderResultMap" type="com.qf.pojo.Product">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+
+        <collection property="orderList" ofType="com.qf.pojo.Order">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+            <result property="uid" column="uid"></result>
+            <result property="pid" column="pid"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectProductAndOrder" resultMap="ProductAndOrderResultMap">
+        select p.id, p.name, o.name, o.uid, o.pid
+        from t_product as p
+                 inner join t_order as o on p.id = o.pid
+
+    </select>
+
+    <resultMap id="ProductAndOrderAndUserResultMap" type="com.qf.pojo.Product">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+
+        <collection property="orderList" ofType="com.qf.pojo.Order">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+            <result property="uid" column="uid"></result>
+            <result property="pid" column="pid"></result>
+            <association property="user" javaType="com.qf.pojo.User">
+                <id property="id" column="id"></id>
+                <result property="name" column="name"></result>
+                <result property="password" column="password"></result>
+                <result property="sex" column="sex"></result>
+                <result property="birthday" column="birthday"></result>
+                <result property="registTime" column="registTime"></result>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="selectProductAndOrderAndUser" resultMap="ProductAndOrderAndUserResultMap">
+        select p.id, p.name, o.name, o.uid, o.pid,u.name,u.password,u.birthday,u.registTime
+        from t_product as p
+                 inner join t_order as o on p.id = o.pid
+                 inner join t_users as u on u.id = o.pid
+    </select>
+
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="com.qf.pojo.User" id="user" init-method="initUser" destroy-method="destroyUser" scope="prototype">
+        <property name="name" value="张三"></property>
+        <property name="age" value="10"></property>
+        <property name="address" ref="address"></property>
+        <property name="hobbyList">
+            <list>
+                <ref bean="hobby1"></ref>
+                <ref bean="hobby2"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="com.qf.pojo.City" id="city">
+        <property name="cityName" value="上海"></property>
+    </bean>
+
+    <bean class="com.qf.pojo.Address" id="address">
+        <constructor-arg name="addressName" value="地址名称"></constructor-arg>
+        <constructor-arg name="city" ref="city"></constructor-arg>
+<!--        <property name="addressName" value="地址名称"></property>-->
+<!--        <property name="city" ref="city"></property>-->
+    </bean>
+
+    <bean class="com.qf.pojo.Hobby" id="hobby1">
+        <property name="hobbyName" value="打球"></property>
+    </bean>
+    <bean class="com.qf.pojo.Hobby" id="hobby2">
+        <property name="hobbyName" value="看电影"></property>
+    </bean>
+
+
+</beans>
